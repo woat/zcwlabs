@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="hero is-small">
+    <section class="hero is-small is-light">
       <div class="hero-body">
         <div class="container">
           <div class="columns">
@@ -9,11 +9,11 @@
         </div>
       </div>
     </section>
-    <section class="hero is-small">
+    <section class="hero is-small is-primary">
       <div class="hero-body">
         <div class="container">
           <div class="columns">
-            <Table class="column is-6 is-offset-3" />
+            <Table class="column is-10 is-offset-1" />
           </div>
         </div>
       </div>

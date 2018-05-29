@@ -1,22 +1,30 @@
 <template>
   <div>
-    <table class="table is-bordered is-striped is-hoverable">
+    <table class="table is-bordered is-striped is-hoverable is-fullwidth">
       <thead>
         <tr>
-          <th>Link to URL</th>
+          <th>Link to ZCW Repo</th>
           <th>Due Date</th>
+          <th>Instructor</th>
+          <th>Delete</th>
         </tr>
       </thead>
       <tfoot>
         <tr>
-          <th>Link to URL</th>
+          <th>Link to ZCW Repo</th>
           <th>Due Date</th>
+          <th>Instructor</th>
+          <th>Delete</th>
         </tr>
       </tfoot>
       <tbody>
-        <tr v-for="lab in labsList">
-          <td><a :href=lab.url >{{ lab.slug }}</a></td>
+        <tr v-for="(lab, key) in labsList">
+          <td><a :href=lab.url style="color: #3273dc">{{ lab.slug }}</a></td>
           <td>{{ lab.dueDate }}</td>
+          <td>{{ lab.instructor }}</td>
+          <td>
+            <button class="button is-danger" @click="deleteLab(key)" >Delete</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -40,8 +48,10 @@ export default {
     getLab() {
       firebase.database().ref('labs').on('value', (snap) => {
         this.labsList = snap.val()
-        console.log(this.labsList)
       })
+    },
+    deleteLab(key) {
+      firebase.database().ref('labs').child(key).remove()
     }
   }
 }
