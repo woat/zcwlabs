@@ -63,18 +63,6 @@ export default {
   async created() {
     this.getLab()
     this.updatePercentage()
-      const event = await firebase.database().ref('labs')
-      const snap = await event.once('value')
-      const val = await snap.val()
-
-      Object.entries(val).forEach(async (entry) => {
-      const readme = "Please don't click this button yet. Thank you."
-          firebase.database().ref('labs').child(entry[0]).update(
-            {
-              readme
-            }
-          )
-      })
   },
   methods: {
     getPercentage(amount) {

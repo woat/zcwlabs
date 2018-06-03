@@ -50,6 +50,7 @@
 import firebase from 'firebase'
 import proxy from '@/utils/proxy'
 import Swal from 'sweetalert2'
+const moment = require('moment')
 
 export default {
   name: 'Home',
@@ -70,6 +71,7 @@ export default {
         url: this.url,
         dueDate: this.dueDate,
         instructor: this.instructor,
+        lastUpdated: moment()._d,
         prCount: 0,
         readme: null,
         slug,
