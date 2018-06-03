@@ -22,7 +22,7 @@
       <div class="hero-body">
         <div class="container">
           <div class="columns">
-            <Table class="column is-10 is-offset-1" />
+            <Table class="column" />
           </div>
         </div>
       </div>
