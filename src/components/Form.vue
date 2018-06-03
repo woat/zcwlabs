@@ -42,7 +42,9 @@
         </div>
       </div>
     </div>
-    <button class="button is-primary" @click="postLab()">Submit</button>
+    <div class="has-text-centered">
+      <button class="button is-primary is-large is-outlined" @click="postLab()">Submit</button>
+    </div>
   </div>
 </template>
 
@@ -62,7 +64,6 @@ export default {
   },
   methods: {
     async postLab() {
-
       const slug = this.url.split("/").pop()
       const id = await this.getFork(slug)
       const fork = await `https://git.zipcode.rocks/repo/fork/${id}`;

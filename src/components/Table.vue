@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+    <table class="table is-striped is-hoverable is-fullwidth">
       <thead>
         <tr>
           <th>Link to ZCW Repo</th>
@@ -36,10 +36,14 @@
             </div>
           </td>
           <td>
-            <a :href=lab.fork><button class="button is-info">Fork</button></a>
+            <a :href=lab.fork>
+              <button class="button is-info fork">
+                <i class="fas fa-fw fa-code-branch"></i>Fork
+              </button>
+            </a>
           </td>
           <td>
-            <button class="button is-danger" @click="deleteLab(key)">Delete</button>
+            <button class="button is-danger is-outlined" @click="deleteLab(key)">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -110,7 +114,25 @@ export default {
       })
     },
     deleteLab(key) {
-      firebase.database().ref('labs').child(key).remove()
+      swal({
+        title: 'Are you sure?',
+        text: "Delete this lab only if you are sure it provides no more value to the board.",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: "Nevermind, let's keep it."
+      }).then((result) => {
+        if (result.value) {
+          firebase.database().ref('labs').child(key).remove()
+          swal(
+            'Deleted!',
+            'This lab has successfully deleted.',
+            'success'
+          )
+        }
+      }) 
     }
   }
 }
@@ -126,6 +148,15 @@ export default {
   top: -4px;
   left: 50%;
   transform: translateX(-50%)
+}
+
+.table {
+  border-radius: 3px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, .5);
+}
+
+.fork {
+  padding-left: 0.50em;
 }
 
 td {
