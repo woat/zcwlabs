@@ -76,10 +76,14 @@ export default {
       let throttle = 1
       Object.entries(val).forEach(async (entry) => {
         const weShouldUpdate = moment().diff(moment(entry[1].lastUpdated), 'hours') > 4
+        const forceNewUpdate = entry[1].lastUpdated ? false : true
 
-        if (weShouldUpdate && throttle <= 10) {
-          const prCount = await proxy.getPulls(entry[1].slug)
+        console.log(forceNewUpdate)
+
+        if ((weShouldUpdate && throttle <= 10) || forceNewUpdate) {
+          const prCount = await proxy.getPulls(entry[1].slug).catch(e => 32) 
           const lastUpdated = moment()._d
+
 
           firebase.database().ref('labs').child(entry[0]).update(
             {

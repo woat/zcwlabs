@@ -49,8 +49,7 @@
 <script>
 import firebase from 'firebase'
 import proxy from '@/utils/proxy'
-import Swal from 'sweetalert2'
-const moment = require('moment')
+import swal from 'sweetalert2'
 
 export default {
   name: 'Home',
@@ -66,23 +65,24 @@ export default {
 
       const slug = this.url.split("/").pop()
       const id = await this.getFork(slug)
-      const fork = await `https://git.zipcode.rocks/repo/fork/${id}`
+      const fork = await `https://git.zipcode.rocks/repo/fork/${id}`;
+
       firebase.database().ref(`labs`).push({
         url: this.url,
         dueDate: this.dueDate,
         instructor: this.instructor,
-        lastUpdated: moment()._d,
         prCount: 0,
         readme: null,
         slug,
         fork
       })
+
       this.url = ''
       this.dueDate = ''
       this.instructor = "Choose Instructor"
-      Swal({
+      swal({
         title: 'Lab successfully posted!',
-        text: 'Your contribution is super appreciated by everyone in the class (but mostly me, tyty)!',
+        text: 'Your contribution is super appreciated by everyone in the class!',
         type: 'success',
         backdrop: `
           rgba(0,0,123,0.4)
